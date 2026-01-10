@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+import "google/protobuf/timestamp.proto";
+
+
+option go_package = "simplebank/pb";
+
+message LoginUserRequest {
+    string email = 1;
+    string password = 2;
+}
+
+
+  /*SessionID       uuid.UUID     `json:"session_id"`
+	AccessToken     string        `json:"access_token"`
+	AccessTokenExp  time.Time     `json:"access_token_exp"`
+	RefreshToken    string        `json:"refresh_token"`
+	RefreshTokenExp time.Time     `json:"refresh_token_exp"`*/
+
+message LoginUserResponse {
+    User user = 1;
+    string session_id = 2;
+    string access_token = 3;
+    string refresh_token = 4;
+    google.protobuf.Timestamp access_token_exp = 5;
+    google.protobuf.Timestamp refresh_token_exp = 6;
+}
+

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+
+
+option go_package = "simplebank/pb";
+
+message CreateUserRequest {
+  string first_name = 1;
+  string first_surname = 2;
+  string second_surname = 3;
+  string email = 4;
+  int32 nationality = 5;
+  string password = 6;
+  string born_at = 7;}
+
+  
+
+message CreateUserResponse {
+  User user = 1;
+}
