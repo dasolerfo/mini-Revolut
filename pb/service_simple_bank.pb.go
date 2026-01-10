@@ -24,11 +24,11 @@ var File_service_simple_bank_proto protoreflect.FileDescriptor
 
 const file_service_simple_bank_proto_rawDesc = "" +
 	"\n" +
-	"\x19service_simple_bank.proto\x12\x02pb\x1a\x15rpc_create_user.proto\x1a\x14rpc_login_user.proto2\x88\x01\n" +
-	"\vUserService\x12=\n" +
+	"\x19service_simple_bank.proto\x12\x02pb\x1a\x15rpc_create_user.proto\x1a\x14rpc_login_user.proto2\x8a\x01\n" +
+	"\vUserService\x12>\n" +
+	"\vCreateOwner\x12\x15.pb.CreateUserRequest\x1a\x16.pb.CreateUserResponse\"\x00\x12;\n" +
 	"\n" +
-	"CreateUser\x12\x15.pb.CreateUserRequest\x1a\x16.pb.CreateUserResponse\"\x00\x12:\n" +
-	"\tLoginUser\x12\x14.pb.LoginUserRequest\x1a\x15.pb.LoginUserResponse\"\x00B\x0fZ\rsimplebank/pbb\x06proto3"
+	"loginOwner\x12\x14.pb.LoginUserRequest\x1a\x15.pb.LoginUserResponse\"\x00B\x0fZ\rsimplebank/pbb\x06proto3"
 
 var file_service_simple_bank_proto_goTypes = []any{
 	(*CreateUserRequest)(nil),  // 0: pb.CreateUserRequest
@@ -37,10 +37,10 @@ var file_service_simple_bank_proto_goTypes = []any{
 	(*LoginUserResponse)(nil),  // 3: pb.LoginUserResponse
 }
 var file_service_simple_bank_proto_depIdxs = []int32{
-	0, // 0: pb.UserService.CreateUser:input_type -> pb.CreateUserRequest
-	1, // 1: pb.UserService.LoginUser:input_type -> pb.LoginUserRequest
-	2, // 2: pb.UserService.CreateUser:output_type -> pb.CreateUserResponse
-	3, // 3: pb.UserService.LoginUser:output_type -> pb.LoginUserResponse
+	0, // 0: pb.UserService.CreateOwner:input_type -> pb.CreateUserRequest
+	1, // 1: pb.UserService.loginOwner:input_type -> pb.LoginUserRequest
+	2, // 2: pb.UserService.CreateOwner:output_type -> pb.CreateUserResponse
+	3, // 3: pb.UserService.loginOwner:output_type -> pb.LoginUserResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
