@@ -4,7 +4,6 @@ package pb;
 
 import "user.proto";
 
-
 option go_package = "simplebank/pb";
 
 message CreateUserRequest {
@@ -16,7 +15,6 @@ message CreateUserRequest {
   string password = 6;
   string born_at = 7;}
 
-  
 
 message CreateUserResponse {
   User user = 1;

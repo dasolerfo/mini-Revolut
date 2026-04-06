@@ -50,10 +50,11 @@ func runGRPCServer(config factory.Config, store db.Store) {
 		log.Fatal("No es pot inicialitzar el server: ", err)
 	}
 	grpcServer := grpc.NewServer()
-	pb.RegisterUserServiceServer(grpcServer, router)
+	pb.RegisterSimpleBankServiceServer(grpcServer, router)
 	reflection.Register(grpcServer)
 
 	listener, err := net.Listen("tcp", config.GRPCServerAddress)
+	log.Printf("Starting gRPC server at %s", config.GRPCServerAddress)
 	if err != nil {
 		log.Fatal("Error! No es pot inicialitzar el listener: ", err)
 	}

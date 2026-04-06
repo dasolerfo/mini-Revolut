@@ -10,7 +10,7 @@ import (
 
 // Server serves gRPC requests for our banking service.
 type Server struct {
-	pb.UnimplementedUserServiceServer
+	pb.UnimplementedSimpleBankServiceServer
 	config     factory.Config
 	tokenMaker token.Maker
 	store      db.Store

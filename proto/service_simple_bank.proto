@@ -7,8 +7,8 @@ import "rpc_login_user.proto";
 
 option go_package = "simplebank/pb";
 
-service UserService {
+service SimpleBankService {
   rpc CreateOwner (CreateUserRequest) returns (CreateUserResponse){}
-  rpc loginOwner (LoginUserRequest) returns (LoginUserResponse){}
+  rpc LoginOwner (LoginUserRequest) returns (LoginUserResponse){}
 
 }

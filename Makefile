@@ -1,7 +1,7 @@
-DB_URL=postgresql://root:Songoku13@localhost:5432/simple_bank?sslmode=disable
+DB_URL=postgresql://root:Contrasenya@localhost:5432/simple_bank?sslmode=disable
 
 postgres: 
-	docker run --name postgres12 --network bank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=Songoku13 -d postgres:12-alpine
+	docker run --name postgres12 --network bank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=Contrasenya -d postgres:12-alpine
 startDB:
 	docker start postgres12
 
@@ -56,7 +56,7 @@ proto:
     proto/*.proto
 	
 evans:
-	evans --host localhost --port 8081 -r repl
+	evans --host localhost --port 9090 -r repl
 	
 .PHONY: createdb startDB dropdb postgres migrateup migratedown sqlc test serve upgradesqlc migrateupremote migratedownremote migrateup1 migratedown1 mockgen db_docs db_schemas proto
 
