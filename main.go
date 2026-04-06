@@ -1,18 +1,22 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"log"
 	"net"
+	"net/http"
 	"simplebank/api"
 	db "simplebank/db/model"
 	"simplebank/factory"
 	"simplebank/gapi"
 	"simplebank/pb"
 
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 func main() {
@@ -26,6 +30,7 @@ func main() {
 	}
 
 	store := db.NewStore(testDB)
+	go runGatewayServer(config, store)
 	runGRPCServer(config, store)
 
 }
@@ -59,6 +64,42 @@ func runGRPCServer(config factory.Config, store db.Store) {
 		log.Fatal("Error! No es pot inicialitzar el listener: ", err)
 	}
 	err = grpcServer.Serve(listener)
+	if err != nil {
+		log.Fatal("Error! No es pot inicialitzar el server: ", err)
+	}
+}
+
+func runGatewayServer(config factory.Config, store db.Store) {
+	router, err := gapi.NewServer(config, store)
+
+	if err != nil {
+		log.Fatal("No es pot inicialitzar el server: ", err)
+	}
+	grpcMux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
+		MarshalOptions: protojson.MarshalOptions{
+			UseProtoNames: true,
+		},
+		UnmarshalOptions: protojson.UnmarshalOptions{
+			DiscardUnknown: true,
+		},
+	}))
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	err = pb.RegisterSimpleBankServiceHandlerServer(ctx, grpcMux, router)
+	if err != nil {
+		log.Fatal("Error! No es pot inicialitzar el handler: ", err)
+	}
+	mux := http.NewServeMux()
+	mux.Handle("/", grpcMux)
+
+	listener, err := net.Listen("tcp", config.HTTPServerAddress)
+	log.Printf("Starting gRPC gateway server at %s", config.HTTPServerAddress)
+	if err != nil {
+		log.Fatal("Error! No es pot inicialitzar el listener: ", err)
+	}
+	err = http.Serve(listener, mux)
 	if err != nil {
 		log.Fatal("Error! No es pot inicialitzar el server: ", err)
 	}

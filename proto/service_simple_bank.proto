@@ -5,10 +5,22 @@ package pb;
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
 
+import "google/api/annotations.proto";
+
 option go_package = "simplebank/pb";
 
 service SimpleBankService {
-  rpc CreateOwner (CreateUserRequest) returns (CreateUserResponse){}
-  rpc LoginOwner (LoginUserRequest) returns (LoginUserResponse){}
+  rpc CreateOwner (CreateUserRequest) returns (CreateUserResponse){
+    option (google.api.http) = {
+     post: "/v1/create_user"
+     body: "*"
+    };
+  }
+  rpc LoginOwner (LoginUserRequest) returns (LoginUserResponse){
+    option (google.api.http) = {
+     post: "/v1/login_user"
+     body: "*"
+    };
+  }
 
 }
