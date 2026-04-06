@@ -40,13 +40,15 @@ func (server *Server) LoginOwner(ctx context.Context, req *pb.LoginUserRequest) 
 		return nil, status.Errorf(codes.Internal, "failed to create refresh token: %s", err)
 	}
 
+	mtdt := server.extractMetadata(ctx)
+
 	sessionParams := db.CreateSessionParams{
 		ID:           refreshpayload.ID,
 		OwnerID:      owner.ID,
 		Email:        owner.Email,
 		RefreshToken: refreshToken,
-		ClientIp:     "", //ctx.ClientIP(),
-		UserAgent:    "", //ctx.Request.UserAgent(),
+		ClientIp:     mtdt.ClientIP,
+		UserAgent:    mtdt.UserAgent,
 		IsBlocked:    false,
 		ExpiresAt:    refreshpayload.ExpiredAt,
 	}
