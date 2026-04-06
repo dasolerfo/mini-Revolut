@@ -73,7 +73,7 @@ func runGatewayServer(config factory.Config, store db.Store) {
 	router, err := gapi.NewServer(config, store)
 
 	if err != nil {
-		log.Fatal("No es pot inicialitzar el server: ", err)
+		log.Fatal("No es pot inicialitzar el server:    ", err)
 	}
 	grpcMux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
 		MarshalOptions: protojson.MarshalOptions{
