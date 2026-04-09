@@ -4,10 +4,30 @@ package pb;
 
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
-
 import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "simplebank/pb";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Mini-Revolut API"
+    version: "1.0"
+    contact: {
+      name: "Daniel Soler"
+      url: "https://github.com/dasolerfo"
+      email: "dasolerfo@github.com"
+    }
+   /* license: {
+      name: "BSD 3-Clause License"
+      url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE"
+    }
+    extensions: {
+      key: "x-something-something"
+      value: {string_value: "yadda"}
+    }*/
+  }
+};
 
 service SimpleBankService {
   rpc CreateOwner (CreateUserRequest) returns (CreateUserResponse){
